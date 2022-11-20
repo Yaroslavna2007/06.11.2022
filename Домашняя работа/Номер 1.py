@@ -1,11 +1,10 @@
 n = int(input())
 a = []
-t = 0
+t = 1
 for x in range(n):
     a.append(['.']*n)
 for e in range(n):
-    a[e][e] = '0'
+    for w in range(n):
+        a[e][w] = str(abs(e-w))
 for z in a:
     print((' '.join(z)))
-
-# не получилось
