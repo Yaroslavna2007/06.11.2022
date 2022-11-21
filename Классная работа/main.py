@@ -90,6 +90,13 @@ def HANGMANPICS1():
     while health > 0:
         test = False
         letter = input('введите букву ')
+        d = 0
+        while d == 0:
+            if len(letter) > 1:
+                print('Введите одну букву')
+                letter = input()
+            else:
+                d = 1
         if letter in used_letters:
             print('эту буквы Вы уже использовали')
         else:
