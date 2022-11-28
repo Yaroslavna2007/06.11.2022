@@ -58,10 +58,11 @@ HANGMANPICS = ['''
 
 def HANGMANPICS1():
     import random
-    words = [['дуб','осина','берёза'],['хомяк','крыса','мышка'],['гитара','фортепиано','скрипка']]
+    words = [['дуб','тополь','берёза'],['хомяк','крыса','мышка'],['гитара','фортепиано','скрипка']]
     help = [['У Лукоморья ... зелёный','... пух','символ России'],['щекастый зверёк','подлый человек','сыр'],['струнный щипковый','Громко и тихо','звук похож на скрип']]
     i = 0
     t = 0
+    g = 0
     health = 7
     used_letters = ''
     win_word = []
@@ -89,8 +90,11 @@ def HANGMANPICS1():
         win_word.append('_')
     while health > 0:
         test = False
-        letter = input('введите букву ')
+        letter = input('введите букву, или если хотите использовать подсказку, напишите "подcказка" ')
         d = 0
+        if letter == 'подсказка':
+            help_index = words[p].index(word)
+            print(help[p][help_index])
         while d == 0:
             if len(letter) > 1:
                 print('Введите одну букву')
@@ -98,7 +102,8 @@ def HANGMANPICS1():
             else:
                 d = 1
         if letter in used_letters:
-            print('эту буквы Вы уже использовали')
+            print('эту букву Вы уже использовали')
+            g = 1
         else:
             used_letters += letter
         for a in word:
@@ -115,17 +120,13 @@ def HANGMANPICS1():
                             test = True
 
         if test == False:
-            health -= 1
+            if g == 0:
+                health -= 1
+                t = t+1
+            g = 0
             print('Вы ввели неверную букву.')
-            print(HANGMANPICS[t])
+            print(HANGMANPICS[t-1])
             print('Оставшееся кол-во попыток = ', health)
-            t = t + 1
-            print('есть возможность получить подсказку: да(1),нет(2)')
-            a = int(input())
-            if a == 1:
-                help_index = words[p].index(word)
-                print(help[p][help_index])
-
         else:
             print('Вы ввели верную буву')
             print(win_word)
